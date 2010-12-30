@@ -2168,8 +2168,15 @@ static NSOperationQueue *sharedQueue = nil;
 
 			// Force the redirected request to rebuild the request headers (if not a 303, it will re-use old ones, and add any new ones)
 			
-			[self setRedirectURL:[[NSURL URLWithString:[responseHeaders valueForKey:@"Location"] relativeToURL:[self url]] absoluteURL]];
+			NSString *redirectUrlString = [responseHeaders valueForKey:@"Location"];
+			NSURL *newURL = [NSURL URLWithString:redirectUrlString relativeToURL:[self url]];
+			if (newURL ==nil) { // if the redirect url is not correctly escaped by the server we will have to do it
+				NSString *escapedRedirectUrlString = [redirectUrlString stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
+				newURL = [NSURL URLWithString:escapedRedirectUrlString relativeToURL:[self url]];
+			}
+			[self setRedirectURL:[newURL absoluteURL]];
 			[self setNeedsRedirect:YES];
+			
 			
 			// Clear the request cookies
 			// This means manually added cookies will not be added to the redirect request - only those stored in the global persistent store
