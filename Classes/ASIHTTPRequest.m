@@ -4324,9 +4324,11 @@ static NSOperationQueue *sharedQueue = nil;
     NSMutableData* data = [NSMutableData dataWithLength:((length + 2) / 3) * 4];
     uint8_t* output = (uint8_t*)data.mutableBytes;
 	
-    for (NSInteger i=0; i < length; i += 3) {
+	NSInteger i;
+    for (i=0; i < length; i += 3) {
         NSInteger value = 0;
-        for (NSInteger j = i; j < (i + 3); j++) {
+		NSInteger j;
+        for (j = i; j < (i + 3); j++) {
             value <<= 8;
 			
             if (j < length) {
