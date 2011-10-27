@@ -51,7 +51,7 @@
 - (IBAction)simpleURLFetch:(id)sender
 {
 	ASIHTTPRequest *request = [[[ASIHTTPRequest alloc] initWithURL:[NSURL URLWithString:@"http://allseeing-i.com"]] autorelease];
-	
+
 	//Customise our user agent, for no real reason
 	[request addRequestHeader:@"User-Agent" value:@"ASIHTTPRequest"];
 	[request setDelegate:self];
@@ -69,12 +69,12 @@
 {
 	[startButton setTitle:@"Stop"];
 	[startButton setAction:@selector(stopURLFetchWithProgress:)];
-	
+
 	NSString *tempFile = [[[[NSBundle mainBundle] bundlePath] stringByDeletingLastPathComponent] stringByAppendingPathComponent:@"The Great American Novel.txt.download"];
 	if ([[NSFileManager defaultManager] fileExistsAtPath:tempFile]) {
 		[[NSFileManager defaultManager] removeItemAtPath:tempFile error:nil];
 	}
-	
+
 	[self resumeURLFetchWithProgress:self];
 }
 
@@ -94,10 +94,10 @@
 	[resumeButton setEnabled:NO];
 	[startButton setTitle:@"Stop"];
 	[startButton setAction:@selector(stopURLFetchWithProgress:)];
-	
+
 	// Stop any other requests
 	[networkQueue reset];
-	
+
 	[self setBigFetchRequest:[ASIHTTPRequest requestWithURL:[NSURL URLWithString:@"http://allseeing-i.com/ASIHTTPRequest/tests/redirect_resume"]]];
 	[[self bigFetchRequest] setDownloadDestinationPath:[[[[NSBundle mainBundle] bundlePath] stringByDeletingLastPathComponent] stringByAppendingPathComponent:@"The Great American Novel.txt"]];
 	[[self bigFetchRequest] setTemporaryFileDownloadPath:[[[[NSBundle mainBundle] bundlePath] stringByDeletingLastPathComponent] stringByAppendingPathComponent:@"The Great American Novel.txt.download"]];
@@ -132,36 +132,36 @@
 	[imageView1 setImage:nil];
 	[imageView2 setImage:nil];
 	[imageView3 setImage:nil];
-	
+
 	[networkQueue reset];
 	[networkQueue setDownloadProgressDelegate:progressIndicator];
 	[networkQueue setDelegate:self];
 	[networkQueue setShowAccurateProgress:([showAccurateProgress state] == NSOnState)];
-	
+
 	ASIHTTPRequest *request;
-	
+
 	request = [[[ASIHTTPRequest alloc] initWithURL:[NSURL URLWithString:@"http://allseeing-i.com/ASIHTTPRequest/tests/images/small-image.jpg"]] autorelease];
 	[request setDownloadDestinationPath:[[[[NSBundle mainBundle] bundlePath] stringByDeletingLastPathComponent] stringByAppendingPathComponent:@"1.png"]];
 	[request setDownloadProgressDelegate:imageProgress1];
 	[request setDidFinishSelector:@selector(imageFetch1Complete:)];
 	[request setDelegate:self];
 	[networkQueue addOperation:request];
-	
+
 	request = [[[ASIHTTPRequest alloc] initWithURL:[NSURL URLWithString:@"http://allseeing-i.com/ASIHTTPRequest/tests/images/medium-image.jpg"]] autorelease];
 	[request setDownloadDestinationPath:[[[[NSBundle mainBundle] bundlePath] stringByDeletingLastPathComponent] stringByAppendingPathComponent:@"2.png"]];
 	[request setDownloadProgressDelegate:imageProgress2];
 	[request setDidFinishSelector:@selector(imageFetch2Complete:)];
 	[request setDelegate:self];
 	[networkQueue addOperation:request];
-	
+
 	request = [[[ASIHTTPRequest alloc] initWithURL:[NSURL URLWithString:@"http://allseeing-i.com/ASIHTTPRequest/tests/images/large-image.jpg"]] autorelease];
 	[request setDownloadDestinationPath:[[[[NSBundle mainBundle] bundlePath] stringByDeletingLastPathComponent] stringByAppendingPathComponent:@"3.png"]];
 	[request setDownloadProgressDelegate:imageProgress3];
 	[request setDidFinishSelector:@selector(imageFetch3Complete:)];
 	[request setDelegate:self];
 	[networkQueue addOperation:request];
-	
-	
+
+
 	[networkQueue go];
 }
 
@@ -209,9 +209,9 @@
 - (IBAction)fetchTopSecretInformation:(id)sender
 {
 	[networkQueue reset];
-	
+
 	[progressIndicator setDoubleValue:0];
-	
+
 	ASIHTTPRequest *request;
 	request = [[[ASIHTTPRequest alloc] initWithURL:[NSURL URLWithString:@"http://allseeing-i.com/top_secret/"]] autorelease];
 	[request setDidFinishSelector:@selector(topSecretFetchComplete:)];
@@ -245,7 +245,7 @@
 {
 	[realm setStringValue:[request proxyAuthenticationRealm]];
 	[host setStringValue:[request proxyHost]];
-	
+
 	[NSApp beginSheet: loginWindow
 	   modalForWindow: window
 		modalDelegate: self
@@ -264,7 +264,7 @@
     if (returnCode == NSOKButton) {
 		if ([request authenticationNeeded] == ASIProxyAuthenticationNeeded) {
 			[request setProxyUsername:[[[username stringValue] copy] autorelease]];
-			[request setProxyPassword:[[[password stringValue] copy] autorelease]];			
+			[request setProxyPassword:[[[password stringValue] copy] autorelease]];
 		} else {
 			[request setUsername:[[[username stringValue] copy] autorelease]];
 			[request setPassword:[[[password stringValue] copy] autorelease]];
@@ -277,26 +277,26 @@
 }
 
 - (IBAction)postWithProgress:(id)sender
-{	
+{
 	//Create a 1MB file
 	NSMutableData *data = [NSMutableData dataWithLength:1024*1024];
 	NSString *path = [[[[NSBundle mainBundle] bundlePath] stringByDeletingLastPathComponent] stringByAppendingPathComponent:@"bigfile"];
 	[data writeToFile:path atomically:NO];
-	
-	
+
+
 	[networkQueue reset];
 	[networkQueue setShowAccurateProgress:YES];
 	[networkQueue setUploadProgressDelegate:progressIndicator];
 	[networkQueue setRequestDidFailSelector:@selector(postFailed:)];
 	[networkQueue setRequestDidFinishSelector:@selector(postFinished:)];
 	[networkQueue setDelegate:self];
-	
+
 	ASIFormDataRequest *request = [[[ASIFormDataRequest alloc] initWithURL:[NSURL URLWithString:@"http://allseeing-i.com/ignore"]] autorelease];
 	[request setPostValue:@"test" forKey:@"value1"];
 	[request setPostValue:@"test" forKey:@"value2"];
 	[request setPostValue:@"test" forKey:@"value3"];
 	[request setFile:path forKey:@"file"];
-	
+
 
 	[networkQueue addOperation:request];
 	[networkQueue go];
@@ -319,7 +319,7 @@
 	[tableView reloadData];
 
 	[self setTableQueue:[ASINetworkQueue queue]];
-	
+
 	ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:@"http://allseeing-i.com/ASIHTTPRequest/tests/table-row-data.xml"]];
 	[request setDownloadCache:[ASIDownloadCache sharedCache]];
 	[request setDidFinishSelector:@selector(tableViewDataFetchFinished:)];

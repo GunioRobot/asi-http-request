@@ -169,7 +169,7 @@ static NSMutableArray *requestsUsingXMLParser = nil;
 		[self failWithError:[NSError errorWithDomain:NetworkRequestErrorDomain code:101 userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"Error: unable to parse reponse XML",NSLocalizedDescriptionKey,nil]]];
 		return;
     }
-	
+
 	[self setResourceList:[NSMutableDictionary dictionary]];
 
     // Populate the list of URLS to download
@@ -190,7 +190,7 @@ static NSMutableArray *requestsUsingXMLParser = nil;
 		[super markAsFinished];
 		return;
 	}
-	
+
 	// Create a new request for every item in the queue
 	[[self externalResourceQueue] cancelAllOperations];
 	[self setExternalResourceQueue:[ASINetworkQueue queue]];
@@ -359,11 +359,11 @@ static NSMutableArray *requestsUsingXMLParser = nil;
     // Evaluate xpath expression
     xmlXPathObjectPtr xpathObj = xmlXPathEvalExpression(xpathExpr, xpathCtx);
     if(xpathObj == NULL) {
-        xmlXPathFreeContext(xpathCtx); 
+        xmlXPathFreeContext(xpathCtx);
 		[self failWithError:[NSError errorWithDomain:NetworkRequestErrorDomain code:101 userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"Error: unable to evaluate XPath expression!",NSLocalizedDescriptionKey,nil]]];
 		return;
     }
-	
+
 	// Now loop through our matches
 	xmlNodeSetPtr nodes = xpathObj->nodesetval;
 
@@ -413,9 +413,9 @@ static NSMutableArray *requestsUsingXMLParser = nil;
 			nodes->nodeTab[i] = NULL;
 		}
     }
-	
+
 	xmlXPathFreeObject(xpathObj);
-    xmlXPathFreeContext(xpathCtx); 
+    xmlXPathFreeContext(xpathCtx);
 }
 
 - (void)addURLToFetch:(NSString *)newURL
@@ -635,7 +635,7 @@ static NSMutableArray *requestsUsingXMLParser = nil;
 		const char *cStr = [[[theRequest url] absoluteString] UTF8String];
 		unsigned char result[16];
 		CC_MD5(cStr, (CC_LONG)strlen(cStr), result);
-		NSString *md5 = [NSString stringWithFormat:@"%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X",result[0], result[1], result[2], result[3], result[4], result[5], result[6], result[7],result[8], result[9], result[10], result[11],result[12], result[13], result[14], result[15]]; 	
+		NSString *md5 = [NSString stringWithFormat:@"%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X",result[0], result[1], result[2], result[3], result[4], result[5], result[6], result[7],result[8], result[9], result[10], result[11],result[12], result[13], result[14], result[15]];
 		return [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:[md5 stringByAppendingPathExtension:@"html"]];
 	}
 }

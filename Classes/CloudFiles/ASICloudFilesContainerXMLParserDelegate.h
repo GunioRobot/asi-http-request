@@ -13,7 +13,7 @@
 @class ASICloudFilesContainer;
 
 @interface ASICloudFilesContainerXMLParserDelegate : NSObject <NSXMLParserDelegate> {
-		
+
 	NSMutableArray *containerObjects;
 
 	// Internally used while parsing the response

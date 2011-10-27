@@ -9,7 +9,7 @@
 @class ASICloudFilesContainer, ASICloudFilesContainerXMLParserDelegate;
 
 @interface ASICloudFilesContainerRequest : ASICloudFilesRequest {
-	
+
 	// Internally used while parsing the response
 	NSString *currentContent;
 	NSString *currentElement;

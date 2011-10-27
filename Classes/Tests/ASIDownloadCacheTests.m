@@ -32,7 +32,7 @@
 	request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:@"http://allseeing-i.com/ASIHTTPRequest/tests/cache-away"]];
 	[request startSynchronous];
 	success = ![request didUseCachedResponse];
-	GHAssertTrue(success,@"Cached response should not have been available");	
+	GHAssertTrue(success,@"Cached response should not have been available");
 
 	// Test read from the cache
 	request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:@"http://allseeing-i.com/ASIHTTPRequest/tests/cache-away"]];
@@ -164,7 +164,7 @@
 	[request startSynchronous];
 	BOOL success = ([request cachePolicy] == [[ASIDownloadCache sharedCache] defaultCachePolicy]);
 	GHAssertTrue(success,@"Failed to use the cache policy from the cache");
-	
+
 	request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:@"http://allseeing-i.com/ASIHTTPRequest/tests/the_great_american_novel_(abridged).txt"]];
 	[request setDownloadCache:[ASIDownloadCache sharedCache]];
 	[request setCachePolicy:ASIOnlyLoadIfNotCachedCachePolicy];
@@ -184,7 +184,7 @@
 		ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:url]];
 		[request setDownloadCache:[ASIDownloadCache sharedCache]];
 		[request startSynchronous];
-		
+
 		request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:url]];
 		[request setDownloadCache:[ASIDownloadCache sharedCache]];
 		[request startSynchronous];
@@ -201,12 +201,12 @@
 	[ASIHTTPRequest setDefaultCache:[ASIDownloadCache sharedCache]];
 	ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:@"http://allseeing-i.com/ASIHTTPRequest/tests/the_great_american_novel_(abridged).txt"]];
 	[request startSynchronous];
-	
+
 	request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:@"http://allseeing-i.com/ASIHTTPRequest/tests/the_great_american_novel_(abridged).txt"]];
 	[request startSynchronous];
 	BOOL success = [request didUseCachedResponse];
 	GHAssertTrue(success,@"Failed to use data cached in default cache");
-	
+
 	[ASIHTTPRequest setDefaultCache:nil];
 	request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:@"http://allseeing-i.com/ASIHTTPRequest/tests/the_great_american_novel_(abridged).txt"]];
 	[request startSynchronous];

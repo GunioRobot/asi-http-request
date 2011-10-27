@@ -148,7 +148,7 @@ NSString *const ASIS3StorageClassReducedRedundancy = @"REDUCED_REDUNDANCY";
 	if ([[self requestMethod] isEqualToString:@"PUT"] && ![self sourceKey]) {
 		[self addRequestHeader:@"Content-Type" value:[self mimeType]];
 		return [NSString stringWithFormat:@"PUT\n\n%@\n%@\n%@%@",[self mimeType],dateString,canonicalizedAmzHeaders,canonicalizedResource];
-	} 
+	}
 	return [super stringToSignForHeaders:canonicalizedAmzHeaders resource:canonicalizedResource];
 }
 

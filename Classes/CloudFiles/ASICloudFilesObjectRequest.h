@@ -14,16 +14,16 @@
 
 @interface ASICloudFilesObjectRequest : ASICloudFilesRequest <NSXMLParserDelegate> {
 
-	
+
 	NSString *accountName;
 	NSString *containerName;
-	
+
 	// Internally used while parsing the response
 	NSString *currentContent;
 	NSString *currentElement;
 	ASICloudFilesObject *currentObject;
 	NSMutableArray *objects;
-	
+
 }
 
 @property (retain) NSString *accountName;

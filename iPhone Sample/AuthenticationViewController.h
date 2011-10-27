@@ -11,9 +11,9 @@
 @class ASIHTTPRequest;
 
 @interface AuthenticationViewController : SampleViewController {
-	
+
 	ASIHTTPRequest *request;
-	
+
 	UISwitch *useKeychain;
 	UISwitch *useBuiltInDialog;
 	UITextView *responseField;

@@ -13,7 +13,7 @@
 
 @interface QueueViewController : SampleViewController {
 	ASINetworkQueue *networkQueue;
-	
+
 	UIImageView *imageView1;
 	UIImageView *imageView2;
 	UIImageView *imageView3;
@@ -26,7 +26,7 @@
 	UILabel *imageLabel2;
 	UILabel *imageLabel3;
 	BOOL failed;
-	
+
 }
 
 - (IBAction)fetchThreeImages:(id)sender;

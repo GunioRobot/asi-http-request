@@ -136,7 +136,7 @@ static NSString *intro = @"Demonstrates fetching content from an area that requi
 		if (tableWidth > 480) { // iPad
 			tablePadding = 110;
 		}
-		
+
 		UIView *view = [[[UIView alloc] initWithFrame:CGRectMake(0,0,tableWidth-(tablePadding/2),30)] autorelease];
 		UIButton *goButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
 		[goButton setTitle:@"Go!" forState:UIControlStateNormal];
@@ -145,7 +145,7 @@ static NSString *intro = @"Demonstrates fetching content from an area that requi
 
 		[goButton addTarget:self action:@selector(fetchTopSecretInformation:) forControlEvents:UIControlEventTouchDown];
 		[view addSubview:goButton];
-		
+
 		return view;
 	}
 	return nil;
@@ -158,18 +158,18 @@ static NSString *intro = @"Demonstrates fetching content from an area that requi
 	if (tableWidth > 480) { // iPad
 		tablePadding = 110;
 	}
-	
-	
+
+
 	UITableViewCell *cell;
 	if ([indexPath section] == 0) {
-		
+
 		cell = [tableView dequeueReusableCellWithIdentifier:@"InfoCell"];
 		if (!cell) {
-			cell = [InfoCell cell];	
+			cell = [InfoCell cell];
 		}
 		[[cell textLabel] setText:intro];
 		[cell layoutSubviews];
-		
+
 	} else if ([indexPath section] == 1) {
 		cell = [tableView dequeueReusableCellWithIdentifier:@"ToggleCell"];
 		if (!cell) {
@@ -184,20 +184,20 @@ static NSString *intro = @"Demonstrates fetching content from an area that requi
 		}
 
 	} else {
-		
+
 		cell = [tableView dequeueReusableCellWithIdentifier:@"Response"];
 		if (!cell) {
 			cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Response"] autorelease];
-			
+
 
 			[[cell contentView] addSubview:responseField];
-		}	
+		}
 		[responseField setFrame:CGRectMake(5,5,tableWidth-tablePadding,150)];
-		
+
 
 	}
 	[cell setSelectionStyle:UITableViewCellSelectionStyleNone];
-	
+
 
 	return cell;
 }

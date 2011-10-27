@@ -7,7 +7,7 @@
 //
 // A class for accessing data stored on Rackspace's Cloud Files Service
 // http://www.rackspacecloud.com/cloud_hosting_products/files
-// 
+//
 // Cloud Files Developer Guide:
 // http://docs.rackspacecloud.com/servers/api/cs-devguide-latest.pdf
 
@@ -64,7 +64,7 @@ static NSRecursiveLock *accessDetailsLock = nil;
 	[accessDetailsLock lock];
 	ASIHTTPRequest *request = [ASICloudFilesRequest authenticationRequest];
 	[request startSynchronous];
-	
+
 	if (![request error]) {
 		NSDictionary *responseHeaders = [request responseHeaders];
 		authToken = [responseHeaders objectForKey:@"X-Auth-Token"];

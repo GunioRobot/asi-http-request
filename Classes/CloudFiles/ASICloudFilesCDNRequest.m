@@ -59,19 +59,19 @@
 
 + (id)listRequestWithLimit:(NSUInteger)limit marker:(NSString *)marker enabledOnly:(BOOL)enabledOnly  {
 	NSString *query = @"?format=xml";
-	
+
 	if (limit > 0) {
 		query = [query stringByAppendingString:[NSString stringWithFormat:@"&limit=%i", limit]];
 	}
-	
+
 	if (marker) {
 		query = [query stringByAppendingString:[NSString stringWithFormat:@"&marker=%@", marker]];
 	}
-	
+
 	if (limit > 0) {
 		query = [query stringByAppendingString:[NSString stringWithFormat:@"&limit=%i", limit]];
 	}
-	
+
 	ASICloudFilesCDNRequest *request = [ASICloudFilesCDNRequest cdnRequestWithMethod:@"GET" query:query];
 	return request;
 }
@@ -80,18 +80,18 @@
 	if (xmlParserDelegate.containerObjects) {
 		return xmlParserDelegate.containerObjects;
 	}
-	
+
 	NSXMLParser *parser = [[[NSXMLParser alloc] initWithData:[self responseData]] autorelease];
 	if (xmlParserDelegate == nil) {
 		xmlParserDelegate = [[ASICloudFilesContainerXMLParserDelegate alloc] init];
 	}
-	
+
 	[parser setDelegate:xmlParserDelegate];
 	[parser setShouldProcessNamespaces:NO];
 	[parser setShouldReportNamespacePrefixes:NO];
 	[parser setShouldResolveExternalEntities:NO];
 	[parser parse];
-	
+
 	return xmlParserDelegate.containerObjects;
 }
 
@@ -107,7 +107,7 @@
 }
 
 + (id)putRequestWithContainer:(NSString *)containerName ttl:(NSUInteger)ttl {
-	ASICloudFilesCDNRequest *request = [ASICloudFilesCDNRequest cdnRequestWithMethod:@"PUT" containerName:containerName];	
+	ASICloudFilesCDNRequest *request = [ASICloudFilesCDNRequest cdnRequestWithMethod:@"PUT" containerName:containerName];
 	[request addRequestHeader:@"X-Ttl" value:[NSString stringWithFormat:@"%i", ttl]];
 	return request;
 }

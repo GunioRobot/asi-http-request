@@ -37,7 +37,7 @@ IMPORTANT
 - (void)testCancelQueue
 {
 	ASINetworkQueue *queue = [ASINetworkQueue queue];
-	
+
 	// Increase the risk of this crash
 	[queue setMaxConcurrentOperationCount:25];
 	int i;
@@ -47,7 +47,7 @@ IMPORTANT
 	}
 	[queue go];
 	[queue cancelAllOperations];
-	
+
 	// Run the test again with requests running on a background thread
 	queue = [ASINetworkQueue queue];
 
@@ -59,7 +59,7 @@ IMPORTANT
 	[queue go];
 	[NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:2]];
 	[queue cancelAllOperations];
-	
+
 }
 
 // This test looks for thread-safety problems with cancelling requests
@@ -131,7 +131,7 @@ IMPORTANT
 - (void)performSetDelegateRequest
 {
 	[self setDelegate:nil];
-	
+
 	[createRequestLock lock];
 	[self setCancelRequest:[ASIHTTPRequest requestWithURL:[NSURL URLWithString:@"http://127.0.0.1/ASIHTTPRequest/tests/the_great_american_novel.txt"]]];
 	if ([[self cancelStartDate] timeIntervalSinceNow] > 0) {
@@ -162,13 +162,13 @@ IMPORTANT
 - (void)setProgress:(float)newProgress
 {
 	progress = newProgress;
-	
+
 	// For cancel test
 	if (newProgress > 0 && [self cancelRequest]) {
-		
+
 		NSLog(@"Stress test: Cancel request %@",[self cancelRequest]);
 		[[self cancelRequest] cancel];
-		
+
 		[self performSelector:@selector(performCancelRequest) withObject:nil afterDelay:0.2];
 		[self setCancelRequest:nil];
 	}

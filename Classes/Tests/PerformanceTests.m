@@ -83,7 +83,7 @@
 	int i;
 	for (i=0; i<runTimes; i++) {
 		NSDate *startTime = [NSDate date];
-		
+
 		NSURLResponse *response = nil;
 		NSError *error = nil;
 		NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:testURL cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10];
@@ -183,14 +183,14 @@
 	bytesDownloaded = 0;
 	[self setRequestsComplete:0];
 	[self setTestStartDate:[NSDate date]];
-	[self setResponseData:[NSMutableArray arrayWithCapacity:5]]; 
-	
+	[self setResponseData:[NSMutableArray arrayWithCapacity:5]];
+
 	int i;
 	for (i=0; i<10; i++) {
 		NSURLRequest *request = [NSURLRequest requestWithURL:testURL cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10];
 		[[self responseData] addObject:[NSMutableData data]];
 		NSURLConnectionSubclass *connection = [[[NSURLConnectionSubclass alloc] initWithRequest:request delegate:self startImmediately:YES] autorelease];
-		[connection setTag:i];		
+		[connection setTag:i];
 	}
 }
 
@@ -205,7 +205,7 @@
 
 - (void)connection:(NSURLConnectionSubclass *)connection didReceiveData:(NSData *)data
 {
-	[[[self responseData] objectAtIndex:[connection tag]] appendData:data];	
+	[[[self responseData] objectAtIndex:[connection tag]] appendData:data];
 
 }
 
@@ -215,7 +215,7 @@
 	requestsComplete++;
 	if (requestsComplete == 10) {
 		NSLog(@"NSURLConnection: Completed 10 (downloaded %lu bytes) requests in %f seconds",bytesDownloaded,[[NSDate date] timeIntervalSinceDate:[self testStartDate]]);
-	}		
+	}
 }
 
 @synthesize testURL;

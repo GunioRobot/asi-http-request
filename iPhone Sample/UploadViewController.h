@@ -11,9 +11,9 @@
 @class ASIFormDataRequest;
 
 @interface UploadViewController : SampleViewController {
-	
+
 	ASIFormDataRequest *request;
-	
+
 	IBOutlet UIProgressView *progressIndicator;
 	UITextView *resultView;
 }

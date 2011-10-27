@@ -62,15 +62,15 @@
 
 + (id)listRequestWithLimit:(NSUInteger)limit marker:(NSString *)marker {
 	NSString *queryString = @"?format=xml";
-	
+
 	if (limit > 0) {
 		queryString = [queryString stringByAppendingString:[NSString stringWithFormat:@"&limit=%i", limit]];
 	}
-	
+
 	if (marker != nil) {
 		queryString = [queryString stringByAppendingString:[NSString stringWithFormat:@"&marker=%@", marker]];
 	}
-	
+
 	ASICloudFilesContainerRequest *request = [ASICloudFilesContainerRequest storageRequestWithMethod:@"GET" queryString:queryString];
 	return request;
 }
@@ -78,7 +78,7 @@
 // GET /<api version>/<account>/<container>
 // Create a request to list all containers
 + (id)listRequest {
-	ASICloudFilesContainerRequest *request = [ASICloudFilesContainerRequest storageRequestWithMethod:@"GET" 
+	ASICloudFilesContainerRequest *request = [ASICloudFilesContainerRequest storageRequestWithMethod:@"GET"
 																			queryString:@"?format=xml"];
 	return request;
 }
@@ -87,18 +87,18 @@
 	if (xmlParserDelegate.containerObjects) {
 		return xmlParserDelegate.containerObjects;
 	}
-	
+
 	NSXMLParser *parser = [[[NSXMLParser alloc] initWithData:[self responseData]] autorelease];
 	if (xmlParserDelegate == nil) {
 		xmlParserDelegate = [[ASICloudFilesContainerXMLParserDelegate alloc] init];
 	}
-	
+
 	[parser setDelegate:xmlParserDelegate];
 	[parser setShouldProcessNamespaces:NO];
 	[parser setShouldReportNamespacePrefixes:NO];
 	[parser setShouldResolveExternalEntities:NO];
 	[parser parse];
-	
+
 	return xmlParserDelegate.containerObjects;
 }
 

@@ -32,7 +32,7 @@
 - (void)testBlocks
 {
 	NSData *dataToSend = [@"This is my post body" dataUsingEncoding:NSUTF8StringEncoding];
-	
+
 	__block BOOL started = NO;
 	__block BOOL receivedHeaders = NO;
 	__block BOOL complete = NO;
@@ -40,9 +40,9 @@
 	__block unsigned long long totalBytesReceived = 0;
 	__block unsigned long long totalDownloadSize = 0;
 	__block unsigned long long totalBytesSent = 0;
-	__block unsigned long long totalUploadSize = 0;	
+	__block unsigned long long totalUploadSize = 0;
 	NSMutableData *dataReceived = [NSMutableData data];
-	
+
 	// There's actually no need for us to use '__block' here, because we aren't using the request inside any of our blocks, but it's good to get into the habit of doing this anyway.
 	__block ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:@"http://allseeing-i.com/ASIHTTPRequest/tests/blocks"]];
 	[request setStartedBlock:^{
@@ -72,27 +72,27 @@
 	[request setDataReceivedBlock:^(NSData *data){
         [dataReceived appendData:data];
     }];
-	
+
 	[request setRequestMethod:@"PUT"];
 	[request appendPostData:dataToSend];
 	[request startSynchronous];
-	
+
 	GHAssertFalse(failed,@"Request failed, cannot proceed with test");
 	GHAssertTrue(started,@"Failed to call started block");
 	GHAssertTrue(receivedHeaders,@"Failed to call received headers block");
 	GHAssertTrue(complete,@"Failed to call completed block");
-	
+
 	BOOL success = (totalBytesReceived == 457);
 	GHAssertTrue(success,@"Failed to call bytes received block, or got wrong amount of data");
 	success = (totalDownloadSize == 457);
 	GHAssertTrue(success,@"Failed to call download size increment block");
-	
+
 	success = (totalBytesSent == [dataToSend length]);
 	GHAssertTrue(success,@"Failed to call bytes sent block");
 	success = (totalUploadSize == [dataToSend length]);
 	GHAssertTrue(success,@"Failed to call upload size increment block");
-	
-	
+
+
 	request = [ASIHTTPRequest requestWithURL:nil];
 	[request setFailedBlock:^{
 		failed = YES;

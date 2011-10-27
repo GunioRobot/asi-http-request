@@ -22,7 +22,7 @@
 @property (assign) NSUInteger bytes;
 @property (retain) NSString *contentType;
 @property (retain) NSDate *lastModified;
-@property (retain) NSData *data;	
+@property (retain) NSData *data;
 @property (retain) NSMutableDictionary *metadata;
 
 + (id)object;

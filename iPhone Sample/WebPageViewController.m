@@ -48,14 +48,14 @@
 	[request setDelegate:self];
 	[request setDownloadProgressDelegate:self];
 	[request setUrlReplacementMode:([replaceURLsSwitch isOn] ? ASIReplaceExternalResourcesWithData : ASIReplaceExternalResourcesWithLocalURLs)];
-	
+
 	// It is strongly recommended that you set both a downloadCache and a downloadDestinationPath for all ASIWebPageRequests
 	[request setDownloadCache:[ASIDownloadCache sharedCache]];
 	[request setCachePolicy:ASIOnlyLoadIfNotCachedCachePolicy];
 
 	// This is actually the most efficient way to set a download path for ASIWebPageRequest, as it writes to the cache directly
 	[request setDownloadDestinationPath:[[ASIDownloadCache sharedCache] pathToStoreCachedResponseDataForRequest:request]];
-	
+
 	[[ASIDownloadCache sharedCache] setShouldRespectCacheControlHeaders:NO];
 	[request startAsynchronous];
 }
@@ -84,7 +84,7 @@
 		[responseField setText:[theRequest responseString]];
 		[webView loadHTMLString:[theRequest responseString] baseURL:baseURL];
 	}
-	
+
 	[urlField setText:[[theRequest url] absoluteString]];
 }
 
@@ -112,7 +112,7 @@
 {
 	if (![[self requestsInProgress] containsObject:theRequest]) {
 		[[self requestsInProgress] addObject:theRequest];
-		[[self tableView] reloadData];	
+		[[self tableView] reloadData];
 	}
 }
 
@@ -175,18 +175,18 @@ static NSString *intro = @"ASIWebPageRequest lets you download complete webpages
 	if (tableWidth > 480) { // iPad
 		tablePadding = 110;
 	}
-	
-	
+
+
 	UITableViewCell *cell;
 	if ([indexPath section] == 0) {
-		
+
 		cell = [tableView dequeueReusableCellWithIdentifier:@"InfoCell"];
 		if (!cell) {
-			cell = [InfoCell cell];	
+			cell = [InfoCell cell];
 		}
 		[[cell textLabel] setText:intro];
 		[cell layoutSubviews];
-		
+
 	} else if ([indexPath section] == 1) {
 		if ([indexPath row] == 0) {
 			cell = [tableView dequeueReusableCellWithIdentifier:@"WebPageCell"];
@@ -218,7 +218,7 @@ static NSString *intro = @"ASIWebPageRequest lets you download complete webpages
 		if ([theRequest didUseCachedResponse]) {
 			[[cell textLabel] setText:[NSString stringWithFormat:@"Cached: %@",[[theRequest url] absoluteString]]];
 			[[cell accessoryView] setHidden:YES];
-			
+
 		} else {
 			[[cell textLabel] setText:[[theRequest url] absoluteString]];
 			if ([theRequest contentLength] > 0) {
@@ -228,15 +228,15 @@ static NSString *intro = @"ASIWebPageRequest lets you download complete webpages
 		}
 
 	} else {
-		
+
 		cell = [tableView dequeueReusableCellWithIdentifier:@"Response"];
 		if (!cell) {
 			cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Response"] autorelease];
 			[[cell contentView] addSubview:responseField];
-			
-		}	
+
+		}
 		[responseField setFrame:CGRectMake(5,5,tableWidth-tablePadding,180)];
-		
+
 	}
 	[cell setSelectionStyle:UITableViewCellSelectionStyleNone];
 	return cell;
@@ -251,30 +251,30 @@ static NSString *intro = @"ASIWebPageRequest lets you download complete webpages
 		if (tableWidth > 480) { // iPad
 			tablePadding = 110;
 		}
-		
+
 		UIView *view = [[[UIView alloc] initWithFrame:CGRectMake(0,0,tableWidth-(tablePadding/2),30)] autorelease];
 
 		UIButton *clearCacheButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
 		[clearCacheButton setTitle:@"Clear Cache" forState:UIControlStateNormal];
 		[clearCacheButton sizeToFit];
 		[clearCacheButton setFrame:CGRectMake([view frame].size.width-[clearCacheButton frame].size.width+10,7,[clearCacheButton frame].size.width,[clearCacheButton frame].size.height)];
-		
+
 		[clearCacheButton addTarget:self action:@selector(clearCache:) forControlEvents:UIControlEventTouchDown];
 		[view addSubview:clearCacheButton];
-		
+
 		UIButton *goButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
 		[goButton setTitle:@"Go!" forState:UIControlStateNormal];
 		[goButton sizeToFit];
 		[goButton setFrame:CGRectMake([clearCacheButton frame].origin.x-[goButton frame].size.width-10,7,[goButton frame].size.width,[goButton frame].size.height)];
-		
-		
+
+
 		[goButton addTarget:self action:@selector(fetchWebPage:) forControlEvents:UIControlEventTouchDown];
 		[view addSubview:goButton];
-		
+
 		[urlField setFrame:CGRectMake((tablePadding/2)-10,8,tableWidth-tablePadding-160,34)];
 		[view addSubview:urlField];
-		
-		
+
+
 		return view;
 	}
 	return nil;

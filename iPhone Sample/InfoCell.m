@@ -21,13 +21,13 @@
 	}
 	[[cell textLabel] setLineBreakMode:UILineBreakModeWordWrap];
 	[[cell textLabel] setNumberOfLines:0];
-	
+
 	if ([[UIScreen mainScreen] bounds].size.width > 480) { // iPad
 		UIImageView *imageView = [[[UIImageView alloc] initWithFrame:CGRectMake(10,10,48,48)] autorelease];
 		[imageView setImage:[UIImage imageNamed:@"info.png"]];
 		[[cell contentView] addSubview:imageView];
 	}
-	return cell;	
+	return cell;
 }
 
 - (void)layoutSubviews
@@ -37,9 +37,9 @@
 	int tableWidth = [[self superview] frame].size.width;
 	if (tableWidth > 480) { // iPad
 		tablePadding = 110;
-		[[self textLabel] setFrame:CGRectMake(70,10,tableWidth-tablePadding-70,[[self class] neededHeightForDescription:[[self textLabel] text] withTableWidth:tableWidth])];	
+		[[self textLabel] setFrame:CGRectMake(70,10,tableWidth-tablePadding-70,[[self class] neededHeightForDescription:[[self textLabel] text] withTableWidth:tableWidth])];
 	} else {
-		[[self textLabel] setFrame:CGRectMake(10,10,tableWidth-tablePadding,[[self class] neededHeightForDescription:[[self textLabel] text] withTableWidth:tableWidth])];	
+		[[self textLabel] setFrame:CGRectMake(10,10,tableWidth-tablePadding,[[self class] neededHeightForDescription:[[self textLabel] text] withTableWidth:tableWidth])];
 	}
 
 }

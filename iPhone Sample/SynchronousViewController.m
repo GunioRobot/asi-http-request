@@ -22,13 +22,13 @@
 	// Create a request
 	// You don't normally need to retain a synchronous request, but we need to in this case because we'll need it later if we reload the table data
 	[self setRequest:[ASIHTTPRequest requestWithURL:url]];
-	
+
 	//Customise our user agent, for no real reason
 	[request addRequestHeader:@"User-Agent" value:@"ASIHTTPRequest"];
 
 	// Start the request
 	[request startSynchronous];
-	
+
 	// Request has now finished
 	[[self tableView] reloadData];
 
@@ -63,22 +63,22 @@ static NSString *intro = @"Demonstrates fetching a web page synchronously, the H
 	if (tableWidth > 480) { // iPad
 		tablePadding = 110;
 	}
-	
+
 	UITableViewCell *cell;
 	if ([indexPath section] == 0) {
 		cell = [tableView dequeueReusableCellWithIdentifier:@"InfoCell"];
 		if (!cell) {
-			cell = [InfoCell cell];	
+			cell = [InfoCell cell];
 		}
 		[[cell textLabel] setText:intro];
 		[cell layoutSubviews];
-		
+
 	} else if ([indexPath section] == 1) {
 		cell = [tableView dequeueReusableCellWithIdentifier:@"URLCell"];
 		if (!cell) {
 			cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"URLCell"] autorelease];
 			urlField = [[[UITextField alloc] initWithFrame:CGRectZero] autorelease];
-			[[cell contentView] addSubview:urlField];	
+			[[cell contentView] addSubview:urlField];
 			goButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
 			[goButton setTitle:@"Go!" forState:UIControlStateNormal];
 			[goButton addTarget:self action:@selector(simpleURLFetch:) forControlEvents:UIControlEventTouchUpInside];
@@ -92,8 +92,8 @@ static NSString *intro = @"Demonstrates fetching a web page synchronously, the H
 		} else {
 			[urlField setText:@"http://allseeing-i.com"];
 		}
-		
-		
+
+
 	} else if ([indexPath section] == 2) {
 		cell = [tableView dequeueReusableCellWithIdentifier:@"ResponseCell"];
 		if (!cell) {
@@ -110,7 +110,7 @@ static NSString *intro = @"Demonstrates fetching a web page synchronously, the H
 				[responseField setText:[request responseString]];
 			}
 		}
-		
+
 	} else {
 		cell = [tableView dequeueReusableCellWithIdentifier:@"HeaderCell"];
 		if (!cell) {

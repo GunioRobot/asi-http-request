@@ -29,7 +29,7 @@
 	}
 	[[self textLabel] setFrame:CGRectMake(5,5,120,20)];
 	[[self detailTextLabel] setFrame:CGRectMake(135,5,[self frame].size.width-145-tablePadding,20)];
-	
+
 }
 
 @end

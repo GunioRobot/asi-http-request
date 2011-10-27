@@ -72,7 +72,7 @@
 
 + (NSString *)queryStringWithContainer:(NSString *)container limit:(NSUInteger)limit marker:(NSString *)marker prefix:(NSString *)prefix path:(NSString *)path {
 	NSString *queryString = @"?format=xml";
-	
+
 	if (limit && limit > 0) {
 		queryString = [queryString stringByAppendingString:[NSString stringWithFormat:@"&limit=%i", limit]];
 	}
@@ -82,7 +82,7 @@
 	if (path) {
 		queryString = [queryString stringByAppendingString:[NSString stringWithFormat:@"&path=%@", [path stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
 	}
-	
+
 	return queryString;
 }
 
@@ -101,7 +101,7 @@
 		return objects;
 	}
 	objects = [[[NSMutableArray alloc] init] autorelease];
-	
+
 	NSXMLParser *parser = [[[NSXMLParser alloc] initWithData:[self responseData]] autorelease];
 	[parser setDelegate:self];
 	[parser setShouldProcessNamespaces:NO];
@@ -120,27 +120,27 @@
 
 - (ASICloudFilesObject *)object {
 	ASICloudFilesObject *object = [ASICloudFilesObject object];
-	
+
 	NSString *path = [self url].path;
 	NSRange range = [path rangeOfString:self.containerName];
 	path = [path substringFromIndex:range.location + range.length + 1];
-	
+
 	object.name = path;
 	object.hash = [[self responseHeaders] objectForKey:@"ETag"];
 	object.bytes = [[[self responseHeaders] objectForKey:@"Content-Length"] intValue];
 	object.contentType = [[self responseHeaders] objectForKey:@"Content-Type"];
 	object.lastModified = [[self responseHeaders] objectForKey:@"Last-Modified"];
 	object.metadata = [[NSMutableDictionary alloc] init];
-	
+
 	for (NSString *key in [[self responseHeaders] keyEnumerator]) {
 		NSRange metaRange = [key rangeOfString:@"X-Object-Meta-"];
 		if (metaRange.location == 0) {
 			[object.metadata setObject:[[self responseHeaders] objectForKey:key] forKey:[key substringFromIndex:metaRange.length]];
 		}
 	}
-	
+
 	object.data = [self responseData];
-	
+
 	return object;
 }
 
@@ -152,7 +152,7 @@
 }
 
 + (id)putObjectRequestWithContainer:(NSString *)containerName objectPath:(NSString *)objectPath contentType:(NSString *)contentType objectData:(NSData *)objectData metadata:(NSDictionary *)metadata etag:(NSString *)etag {
-	
+
 	ASICloudFilesObjectRequest *request = [ASICloudFilesObjectRequest storageRequestWithMethod:@"PUT" containerName:containerName objectPath:objectPath];
 	[request addRequestHeader:@"Content-Type" value:contentType];
 
@@ -161,9 +161,9 @@
 		for (NSString *key in [metadata keyEnumerator]) {
 			[request addRequestHeader:[NSString stringWithFormat:@"X-Object-Meta-%@", key] value:[metadata objectForKey:key]];
 		}
-	}	
-	
-	[request appendPostData:objectData];	
+	}
+
+	[request appendPostData:objectData];
 	return request;
 }
 
@@ -171,17 +171,17 @@
 {
 	ASICloudFilesObjectRequest *request = [ASICloudFilesObjectRequest storageRequestWithMethod:@"PUT" containerName:containerName objectPath:objectPath];
 	[request addRequestHeader:@"Content-Type" value:contentType];
-	
+
 	// add metadata to headers
 	if (metadata) {
 		for (NSString *key in [metadata keyEnumerator]) {
 			[request addRequestHeader:[NSString stringWithFormat:@"X-Object-Meta-%@", key] value:[metadata objectForKey:key]];
 		}
-	}	
-	
+	}
+
 	[request setShouldStreamPostDataFromDisk:YES];
 	[request setPostBodyFilePath:filePath];
-	return request;	
+	return request;
 }
 
 #pragma mark -
@@ -193,14 +193,14 @@
 
 + (id)postObjectRequestWithContainer:(NSString *)containerName objectPath:(NSString *)objectPath metadata:(NSDictionary *)metadata {
 	ASICloudFilesObjectRequest *request = [ASICloudFilesObjectRequest storageRequestWithMethod:@"POST" containerName:containerName objectPath:objectPath];
-	
+
 	// add metadata to headers
 	if (metadata) {
 		for (NSString *key in [metadata keyEnumerator]) {
 			[request addRequestHeader:[NSString stringWithFormat:@"X-Object-Meta-%@", key] value:[metadata objectForKey:key]];
 		}
-	}	
-	
+	}
+
 	return request;
 }
 
@@ -217,7 +217,7 @@
 
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict {
 	[self setCurrentElement:elementName];
-	
+
 	if ([elementName isEqualToString:@"object"]) {
 		[self setCurrentObject:[ASICloudFilesObject object]];
 	}

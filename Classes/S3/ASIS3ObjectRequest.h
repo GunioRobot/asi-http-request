@@ -18,19 +18,19 @@ extern NSString *const ASIS3StorageClassReducedRedundancy;
 
 	// Name of the bucket to talk to
 	NSString *bucket;
-	
+
 	// Key of the resource you want to access on S3
 	NSString *key;
-	
+
 	// The bucket + path of the object to be copied (used with COPYRequestFromBucket:path:toBucket:path:)
 	NSString *sourceBucket;
 	NSString *sourceKey;
-	
+
 	// The mime type of the content for PUT requests
 	// Set this if having the correct mime type returned to you when you GET the data is important (eg it will be served by a web-server)
 	// Can be autodetected when PUTing a file from disk, will default to 'application/octet-stream' when PUTing data
 	NSString *mimeType;
-	
+
 	// Set this to specify you want to work with a particular subresource (eg an acl for that resource)
 	// See requestWithBucket:key:subResource:, below.
 	NSString* subResource;

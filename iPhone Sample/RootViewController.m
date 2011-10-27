@@ -76,19 +76,19 @@
 		case 4:
 			viewController = [[[WebPageViewController alloc] initWithNibName:@"Sample" bundle:nil] autorelease];
 			break;
-	}	
+	}
 	[splitViewController setViewControllers:[NSArray arrayWithObjects:[self navigationController],viewController,nil]];
-	
+
 	// Dismiss the popover if it's present.
     if ([self popoverController]) {
         [[self popoverController] dismissPopoverAnimated:YES];
     }
-	
+
     // Configure the new view controller's popover button (after the view has been displayed and its toolbar/navigation bar has been created).
     if ([self rootPopoverButtonItem]) {
         [[[(id)viewController navigationBar] topItem] setLeftBarButtonItem:[self rootPopoverButtonItem] animated:NO];
     }
-	
+
 }
 
 - (void)splitViewController:(UISplitViewController*)svc willHideViewController:(UIViewController *)aViewController withBarButtonItem:(UIBarButtonItem*)barButtonItem forPopoverController:(UIPopoverController*)pc

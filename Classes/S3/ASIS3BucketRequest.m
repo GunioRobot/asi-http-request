@@ -75,7 +75,7 @@
 {
 	if ([self subResource]) {
 		return [NSString stringWithFormat:@"/%@/?%@",[self bucket],[self subResource]];
-	} 
+	}
 	return [NSString stringWithFormat:@"/%@/",[self bucket]];
 }
 

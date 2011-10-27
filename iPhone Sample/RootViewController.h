@@ -10,7 +10,7 @@
 
 @interface RootViewController : UITableViewController <UISplitViewControllerDelegate> {
 	UISplitViewController *splitViewController;
-    UIPopoverController *popoverController;    
+    UIPopoverController *popoverController;
     UIBarButtonItem *rootPopoverButtonItem;
 }
 @property (nonatomic, assign) IBOutlet UISplitViewController *splitViewController;

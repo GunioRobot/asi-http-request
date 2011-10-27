@@ -17,32 +17,32 @@
 	IBOutlet NSTextField *fileLocation;
 	IBOutlet NSWindow *window;
 	IBOutlet NSWindow *loginWindow;
-	
+
 	IBOutlet NSButton *showAccurateProgress;
-	
+
 	IBOutlet NSTextField *host;
-	IBOutlet NSTextField *realm;	
+	IBOutlet NSTextField *realm;
 	IBOutlet NSTextField *username;
 	IBOutlet NSTextField *password;
-	
+
 	IBOutlet NSTextField *topSecretInfo;
 	IBOutlet NSButton *keychainCheckbox;
-	
+
 	IBOutlet NSImageView *imageView1;
 	IBOutlet NSImageView *imageView2;
 	IBOutlet NSImageView *imageView3;
 	IBOutlet NSProgressIndicator *imageProgress1;
 	IBOutlet NSProgressIndicator *imageProgress2;
 	IBOutlet NSProgressIndicator *imageProgress3;
-	
+
 	IBOutlet NSButton *startButton;
 	IBOutlet NSButton *resumeButton;
-	
+
 	IBOutlet NSTextField *bandwidthUsed;
-	
+
 	ASIHTTPRequest *bigFetchRequest;
 	IBOutlet NSTextField *postStatus;
-	
+
 	IBOutlet NSTableView *tableView;
 	IBOutlet NSTextField *tableLoadStatus;
 	NSMutableArray *rowData;

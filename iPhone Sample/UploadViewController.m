@@ -34,18 +34,18 @@
 	[request setDelegate:self];
 	[request setDidFailSelector:@selector(uploadFailed:)];
 	[request setDidFinishSelector:@selector(uploadFinished:)];
-	
+
 	//Create a 256KB file
 	NSData *data = [[[NSMutableData alloc] initWithLength:256*1024] autorelease];
 	NSString *path = [[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:@"file"];
 	[data writeToFile:path atomically:NO];
-	
+
 	//Add the file 8 times to the request, for a total request size around 2MB
 	int i;
 	for (i=0; i<8; i++) {
 		[request setFile:path forKey:[NSString stringWithFormat:@"file-%hi",i]];
 	}
-	
+
 	[request startAsynchronous];
 	[resultView setText:@"Uploading data..."];
 }
@@ -116,18 +116,18 @@ static NSString *intro = @"Demonstrates POSTing content to a URL, showing upload
 		if (tableWidth > 480) { // iPad
 			tablePadding = 110;
 		}
-		
+
 		UIView *view = [[[UIView alloc] initWithFrame:CGRectMake(0,0,tableWidth-(tablePadding/2),30)] autorelease];
 		UIButton *goButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
 		[goButton setTitle:@"Go!" forState:UIControlStateNormal];
 		[goButton sizeToFit];
 		[goButton setFrame:CGRectMake([view frame].size.width-[goButton frame].size.width+10,7,[goButton frame].size.width,[goButton frame].size.height)];
-		
+
 		[goButton addTarget:self action:@selector(performLargeUpload:) forControlEvents:UIControlEventTouchUpInside];
 		[view addSubview:goButton];
 		[progressIndicator setFrame:CGRectMake((tablePadding/2)-10,20,200,10)];
 		[view addSubview:progressIndicator];
-		
+
 		return view;
 	}
 	return nil;
@@ -140,17 +140,17 @@ static NSString *intro = @"Demonstrates POSTing content to a URL, showing upload
 	if (tableWidth > 480) { // iPad
 		tablePadding = 110;
 	}
-	
+
 	UITableViewCell *cell;
 	if ([indexPath section] == 0) {
 		cell = [tableView dequeueReusableCellWithIdentifier:@"InfoCell"];
 		if (!cell) {
-			cell = [InfoCell cell];	
+			cell = [InfoCell cell];
 		}
 		[[cell textLabel] setText:intro];
 		[cell layoutSubviews];
-		
-		
+
+
 	} else if ([indexPath section] == 1) {
 		return nil;
 	} else {
@@ -158,7 +158,7 @@ static NSString *intro = @"Demonstrates POSTing content to a URL, showing upload
 		if (!cell) {
 			cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Response"] autorelease];
 			[[cell contentView] addSubview:resultView];
-		}	
+		}
 		[resultView setFrame:CGRectMake(5,5,tableWidth-tablePadding,60)];
 	}
 	[cell setSelectionStyle:UITableViewCellSelectionStyleNone];

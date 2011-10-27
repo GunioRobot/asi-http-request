@@ -20,7 +20,7 @@
 
 - (void)showNavigationButton:(UIBarButtonItem *)button
 {
-    [[[self navigationBar] topItem] setLeftBarButtonItem:button animated:NO];	
+    [[[self navigationBar] topItem] setLeftBarButtonItem:button animated:NO];
 }
 
 - (void)hideNavigationButton:(UIBarButtonItem *)button
@@ -28,7 +28,7 @@
     [[[self navigationBar] topItem] setLeftBarButtonItem:nil animated:NO];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation 
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
 	return YES;
 }
@@ -74,7 +74,7 @@
 {
 	UIEdgeInsets e = UIEdgeInsetsMake(0, 0, 0, 0);
 	[[self tableView] setScrollIndicatorInsets:e];
-	[[self tableView] setContentInset:e];	
+	[[self tableView] setContentInset:e];
 }
 
 - (void)dealloc {

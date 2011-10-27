@@ -33,7 +33,7 @@
 	[super layoutSubviews];
 	CGRect f = [[self accessoryView] frame];
 	[[self accessoryView] setFrame:CGRectMake(f.origin.x, f.origin.y+6, f.size.width, f.size.height)];
-	
+
 }
 
 @synthesize progressView;

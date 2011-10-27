@@ -54,7 +54,7 @@ static NSString *sharedSecretAccessKey = nil;
 
 - (void)setDate:(NSDate *)date
 {
-	[self setDateString:[[ASIS3Request S3RequestDateFormatter] stringFromDate:date]];	
+	[self setDateString:[[ASIS3Request S3RequestDateFormatter] stringFromDate:date]];
 }
 
 - (ASIHTTPRequest *)HEADRequest
@@ -111,10 +111,10 @@ static NSString *sharedSecretAccessKey = nil;
 		[self setDate:[NSDate date]];
 	}
 	[self addRequestHeader:@"Date" value:[self dateString]];
-	
+
 	// Ensure our formatted string doesn't use '(null)' for the empty path
 	NSString *canonicalizedResource = [self canonicalizedResource];
-	
+
 	// Add a header for the access policy if one was set, otherwise we won't add one (and S3 will default to private)
 	NSMutableDictionary *amzHeaders = [self S3Headers];
 	NSString *canonicalizedAmzHeaders = @"";
@@ -122,14 +122,14 @@ static NSString *sharedSecretAccessKey = nil;
 		canonicalizedAmzHeaders = [NSString stringWithFormat:@"%@%@:%@\n",canonicalizedAmzHeaders,[header lowercaseString],[amzHeaders objectForKey:header]];
 		[self addRequestHeader:header value:[amzHeaders objectForKey:header]];
 	}
-	
+
 	// Jump through hoops while eating hot food
 	NSString *stringToSign = [self stringToSignForHeaders:canonicalizedAmzHeaders resource:canonicalizedResource];
 	NSString *signature = [ASIHTTPRequest base64forData:[ASIS3Request HMACSHA1withKey:[self secretAccessKey] forString:stringToSign]];
 	NSString *authorizationString = [NSString stringWithFormat:@"AWS %@:%@",[self accessKey],signature];
 	[self addRequestHeader:@"Authorization" value:authorizationString];
-	
-	
+
+
 }
 
 - (void)requestFinished
@@ -272,7 +272,7 @@ static NSString *sharedSecretAccessKey = nil;
 		[threadDict setObject:dateFormatter forKey:@"ASIS3RequestHeaderDateFormatter"];
 	}
 	return dateFormatter;
-	
+
 }
 
 // From: http://stackoverflow.com/questions/476455/is-there-a-library-for-iphone-to-work-with-hmac-sha-1-encoding
@@ -281,14 +281,14 @@ static NSString *sharedSecretAccessKey = nil;
 {
 	NSData *clearTextData = [string dataUsingEncoding:NSUTF8StringEncoding];
 	NSData *keyData = [key dataUsingEncoding:NSUTF8StringEncoding];
-	
+
 	uint8_t digest[CC_SHA1_DIGEST_LENGTH] = {0};
-	
+
 	CCHmacContext hmacContext;
 	CCHmacInit(&hmacContext, kCCHmacAlgSHA1, keyData.bytes, keyData.length);
 	CCHmacUpdate(&hmacContext, clearTextData.bytes, clearTextData.length);
 	CCHmacFinal(&hmacContext, digest);
-	
+
 	return [NSData dataWithBytes:digest length:CC_SHA1_DIGEST_LENGTH];
 }
 

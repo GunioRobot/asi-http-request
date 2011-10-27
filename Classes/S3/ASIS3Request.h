@@ -37,13 +37,13 @@ typedef enum _ASIS3ErrorType {
 
 
 @interface ASIS3Request : ASIHTTPRequest <NSCopying, NSXMLParserDelegate> {
-	
+
 	// Your S3 access key. Set it on the request, or set it globally using [ASIS3Request setSharedAccessKey:]
 	NSString *accessKey;
-	
+
 	// Your S3 secret access key. Set it on the request, or set it globally using [ASIS3Request setSharedSecretAccessKey:]
 	NSString *secretAccessKey;
-	
+
 	// Set to ASIS3RequestSchemeHTTPS to send your requests via HTTPS (default is ASIS3RequestSchemeHTTP)
 	NSString *requestScheme;
 
@@ -62,14 +62,14 @@ typedef enum _ASIS3ErrorType {
 - (void)setDate:(NSDate *)date;
 
 // Will return a dictionary of the 'amz-' headers that wil be sent to S3
-// Override in subclasses to add new ones	
+// Override in subclasses to add new ones
 - (NSMutableDictionary *)S3Headers;
-	
+
 // Returns the string that will used to create a signature for this request
 // Is overridden in ASIS3ObjectRequest
 - (NSString *)stringToSignForHeaders:(NSString *)canonicalizedAmzHeaders resource:(NSString *)canonicalizedResource;
 
-// Parses the response to work out if S3 returned an error	
+// Parses the response to work out if S3 returned an error
 - (void)parseResponseXML;
 
 #pragma mark shared access keys
@@ -81,10 +81,10 @@ typedef enum _ASIS3ErrorType {
 + (void)setSharedSecretAccessKey:(NSString *)newAccessKey;
 
 # pragma mark helpers
-	
+
 // Returns a date formatter than can be used to parse a date from S3
 + (NSDateFormatter*)S3ResponseDateFormatter;
-	
+
 // Returns a date formatter than can be used to send a date header to S3
 + (NSDateFormatter*)S3RequestDateFormatter;
 

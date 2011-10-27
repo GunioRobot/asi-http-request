@@ -12,7 +12,7 @@
 	NSString *accountName;
 	NSString *containerName;
 	ASICloudFilesContainerXMLParserDelegate *xmlParserDelegate;
-	
+
 }
 
 @property (retain) NSString *accountName;
